@@ -1,0 +1,11 @@
+{
+  "name": "system-design-interactive",
+  "version": "1.0.0",
+  "description": "Interactive System Design Course with 2.5D visual simulations",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "author": "Sunag P (@sunag3007)",
+  "license": "MIT"
+}

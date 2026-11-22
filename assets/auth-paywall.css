@@ -1,0 +1,463 @@
+/* Auth & Paywall Design Tokens & Components */
+
+/* Topbar Auth Container */
+.topbar-auth {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-inline-start: 8px;
+}
+
+.google-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--paper-sheet, #fff);
+  color: var(--ink, #1c1917);
+  border: 1.5px solid var(--ink, #1c1917);
+  border-radius: 9px;
+  padding: 5px 12px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 1.5px 2px 0 var(--ink, #1c1917);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  white-space: nowrap;
+}
+
+.google-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 2.5px 3px 0 var(--ink, #1c1917);
+}
+
+.google-btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 0.5px 1px 0 var(--ink, #1c1917);
+}
+
+.google-btn__icon {
+  width: 15px;
+  height: 15px;
+  flex: none;
+}
+
+.user-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--paper-2, #ece0d1);
+  border: 1.5px solid var(--ink, #1c1917);
+  border-radius: 9px;
+  padding: 3px 8px 3px 4px;
+  font-size: 11.5px;
+  font-weight: 700;
+  box-shadow: 1.5px 2px 0 var(--ink, #1c1917);
+}
+
+.user-badge__avatar {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent, #16a34a);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 800;
+  border: 1px solid var(--ink, #1c1917);
+  object-fit: cover;
+}
+
+.user-badge__name {
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-badge__logout {
+  background: none;
+  border: none;
+  color: var(--muted, #78716c);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 10px;
+  text-decoration: underline;
+  padding: 0 2px;
+  margin-left: 2px;
+}
+
+.user-badge__logout:hover {
+  color: var(--ink, #1c1917);
+}
+
+/* Paywall Lock Card Overlay on Preview Lessons */
+.paywall-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(244, 235, 224, 0.72);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  animation: paywallFadeIn 0.25s ease-out;
+}
+
+html[data-theme="dark"] .paywall-overlay,
+html.dark .paywall-overlay {
+  background: rgba(25, 23, 21, 0.78);
+}
+
+@keyframes paywallFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.paywall-card {
+  max-width: 440px;
+  background: var(--paper-sheet, #fffdfa);
+  border: 2px solid var(--ink, #1c1917);
+  border-radius: 14px;
+  padding: 28px 24px;
+  box-shadow: 4px 6px 0 var(--ink, #1c1917);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.paywall-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fef3c7;
+  color: #92400e;
+  border: 1.5px solid #d97706;
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+html[data-theme="dark"] .paywall-badge,
+html.dark .paywall-badge {
+  background: #451a03;
+  color: #fde68a;
+  border-color: #b45309;
+}
+
+.paywall-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--ink, #1c1917);
+  line-height: 1.25;
+}
+
+.paywall-desc {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--muted, #78716c);
+}
+
+.paywall-action {
+  margin-top: 6px;
+  width: 100%;
+}
+
+.paywall-action .google-btn {
+  width: 100%;
+  justify-content: center;
+  padding: 10px 16px;
+  font-size: 13.5px;
+  border-radius: 10px;
+}
+
+.paywall-meta {
+  font-size: 11px;
+  color: var(--muted, #78716c);
+}
+
+/* Sidebar Lock Badges */
+.lesson.is-locked a {
+  opacity: 0.85;
+}
+
+.lesson.is-locked .lesson-lock-icon {
+  margin-left: auto;
+  color: #b45309;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Modal Popup Dialog for Sign In / Config */
+.auth-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+}
+
+.auth-modal {
+  width: 100%;
+  max-width: 400px;
+  background: var(--paper-sheet, #fffdfa);
+  border: 2px solid var(--ink, #1c1917);
+  border-radius: 16px;
+  box-shadow: 6px 8px 0 var(--ink, #1c1917);
+  padding: 24px;
+  position: relative;
+}
+
+.auth-modal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: none;
+  border: 1px solid var(--ink, #1c1917);
+  border-radius: 6px;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+
+/* Gentle Razorpay Lifetime Payment Modal & Cards */
+
+.payment-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  animation: paywallFadeIn 0.2s ease-out;
+}
+
+.payment-card-modal {
+  width: 100%;
+  max-width: 480px;
+  background: var(--paper-sheet, #fffdfa);
+  border: 2px solid var(--ink, #1c1917);
+  border-radius: 16px;
+  box-shadow: 6px 8px 0 var(--ink, #1c1917);
+  padding: 26px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+.payment-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.payment-icon-tile {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: #fef08a;
+  border: 1.5px solid var(--ink, #1c1917);
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  flex: none;
+  box-shadow: 2px 2px 0 var(--ink, #1c1917);
+}
+
+.payment-title-group h2 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--ink, #1c1917);
+  line-height: 1.25;
+}
+
+.payment-title-group span {
+  font-size: 11.5px;
+  color: var(--muted, #78716c);
+}
+
+.payment-gentle-msg {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink, #1c1917);
+  background: var(--paper-2, #ece0d1);
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--line, #ded3c3);
+}
+
+html[data-theme="dark"] .payment-gentle-msg,
+html.dark .payment-gentle-msg {
+  background: var(--paper-2, #24211e);
+  color: var(--ink, #e6ded3);
+}
+
+.payment-perks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--ink, #1c1917);
+}
+
+.payment-perk-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.payment-perk-item svg {
+  color: #16a34a;
+  flex: none;
+}
+
+.payment-pricing-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--paper-sheet, #fffdfa);
+  border: 2px solid var(--ink, #1c1917);
+  border-radius: 12px;
+  padding: 12px 16px;
+  box-shadow: 2.5px 3.5px 0 var(--ink, #1c1917);
+}
+
+.payment-price-tag {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.payment-price-currency {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--ink, #1c1917);
+}
+
+.payment-price-val {
+  font-size: 32px;
+  font-weight: 900;
+  color: #16a34a;
+  line-height: 1;
+}
+
+.payment-price-sub {
+  font-size: 11px;
+  color: var(--muted, #78716c);
+  font-weight: 600;
+}
+
+.payment-methods-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--muted, #78716c);
+}
+
+.payment-methods-pills {
+  display: flex;
+  gap: 6px;
+}
+
+.payment-pill {
+  background: var(--paper-2, #ece0d1);
+  border: 1px solid var(--line, #ded3c3);
+  border-radius: 6px;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--ink, #1c1917);
+}
+
+.razorpay-pay-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #16a34a;
+  color: #ffffff;
+  border: 2px solid var(--ink, #1c1917);
+  border-radius: 12px;
+  padding: 13px 20px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 3px 4px 0 var(--ink, #1c1917);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.razorpay-pay-btn:hover {
+  background: #15803d;
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 5px 0 var(--ink, #1c1917);
+}
+
+.razorpay-pay-btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 2px 0 var(--ink, #1c1917);
+}
+
+.payment-footer-note {
+  text-align: center;
+  font-size: 10.5px;
+  color: var(--muted, #78716c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.supporter-badge {
+  background: #dcfce7;
+  color: #166534;
+  border: 1.5px solid #16a34a;
+  border-radius: 6px;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+html[data-theme="dark"] .supporter-badge,
+html.dark .supporter-badge {
+  background: #052e16;
+  color: #86efac;
+  border-color: #22c55e;
+}
