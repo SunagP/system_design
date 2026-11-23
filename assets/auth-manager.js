@@ -380,49 +380,34 @@
   function openAuthModal(errMsg = '') {
     closeAuthModal();
 
-    const cfg = window.RAZORPAY_CONFIG || {};
-    const isTestMode = !cfg.keyId || cfg.keyId.startsWith('rzp_test_');
-
     const modal = document.createElement('div');
     modal.id = 'auth-modal-dialog';
     modal.className = 'auth-modal-backdrop';
     modal.innerHTML = `
-      <div class="auth-modal" style="max-width: 420px;">
+      <div class="auth-modal" style="max-width: 380px;">
         <button class="auth-modal__close" id="modal-close-btn">&times;</button>
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px;">
-          <span style="font-size:22px;">🔐</span>
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+          <span style="font-size:24px;">🔐</span>
           <div>
             <h3 style="margin:0; font-size:16px; font-weight:800; line-height:1.2;">Sign in to Continue</h3>
             <span style="font-size:11px; color:var(--muted,#78716c);">Strict @gmail.com authentication</span>
           </div>
         </div>
 
+        <p style="margin:0 0 16px; font-size:12px; line-height:1.5; color:var(--muted,#78716c);">
+          Sign in with your Google account to track your progress and unlock system design modules.
+        </p>
+
         ${errMsg ? `
-          <div style="background:#fee2e2; color:#b91c1c; padding:8px 12px; border-radius:8px; font-size:11.5px; margin-bottom:12px; border:1px solid #f87171; line-height:1.4;">
+          <div style="background:#fee2e2; color:#b91c1c; padding:8px 12px; border-radius:8px; font-size:11.5px; margin-bottom:14px; border:1px solid #f87171; line-height:1.4;">
             ${errMsg}
           </div>
         ` : ''}
 
-        <button class="google-btn" id="modal-google-btn" style="width:100%; justify-content:center; padding:10px 16px; font-size:13px; border-radius:9px;">
+        <button class="google-btn" id="modal-google-btn" style="width:100%; justify-content:center; padding:11px 16px; font-size:13.5px; border-radius:10px; min-height:44px;">
           ${GOOGLE_SVG}
-          <span>Continue with Google</span>
+          <span>Sign in with Google</span>
         </button>
-
-        <div class="auth-divider">or sign in with password</div>
-
-        <form class="auth-email-form" id="modal-email-form">
-          <input type="email" id="modal-email-input" class="auth-input-field" placeholder="username@gmail.com" required autocomplete="username" />
-          <input type="password" id="modal-password-input" class="auth-input-field" placeholder="Password" required autocomplete="current-password" />
-          <button type="submit" class="auth-submit-btn" id="modal-email-submit">Sign In / Sign Up</button>
-        </form>
-
-        ${isTestMode ? `
-          <div class="auth-test-helper-card" style="margin-top:12px;">
-            <b>⚡ Razorpay Verification / QA Credentials:</b><br>
-            Email: <code>testuser@gmail.com</code><br>
-            Password: <code>TestPassword123!</code>
-          </div>
-        ` : ''}
       </div>
     `;
 
@@ -433,16 +418,6 @@
       closeAuthModal();
       signInWithGoogle();
     };
-
-    const form = modal.querySelector('#modal-email-form');
-    if (form) {
-      form.onsubmit = (e) => {
-        e.preventDefault();
-        const email = (modal.querySelector('#modal-email-input').value || '').trim();
-        const pass = (modal.querySelector('#modal-password-input').value || '').trim();
-        signInWithEmail(email, pass);
-      };
-    }
   }
 
   // 3. Gentle Razorpay Payment Modal
@@ -757,17 +732,14 @@
     overlay.className = 'paywall-overlay';
 
     if (!currentUser) {
-      const cfg = window.RAZORPAY_CONFIG || {};
-      const isTestMode = !cfg.keyId || cfg.keyId.startsWith('rzp_test_');
-
-      // Step 1 Paywall: Sign in with Gmail (Google OAuth or Password)
+      // Step 1 Paywall: Sign in with Google (Strict Gmail)
       overlay.innerHTML = `
-        <div class="paywall-card" style="max-width: 440px;">
+        <div class="paywall-card">
           <span class="paywall-badge">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             Lesson Preview Mode
           </span>
-          <h2 class="paywall-title">Sign in with Gmail to Continue</h2>
+          <h2 class="paywall-title">Sign in with Google to Continue</h2>
           <p class="paywall-desc">
             You've completed the free foundation and load balancing lessons. Sign in with your <strong>@gmail.com</strong> account to continue learning.
           </p>
@@ -776,37 +748,11 @@
               ${GOOGLE_SVG}
               <span>Continue with Google</span>
             </button>
-
-            <div class="auth-divider">or sign in with password</div>
-
-            <form class="auth-email-form" id="paywall-email-form">
-              <input type="email" id="paywall-email-input" class="auth-input-field" placeholder="username@gmail.com" required autocomplete="username" />
-              <input type="password" id="paywall-password-input" class="auth-input-field" placeholder="Password" required autocomplete="current-password" />
-              <button type="submit" class="auth-submit-btn" id="paywall-email-submit">Sign In / Sign Up</button>
-            </form>
-
-            ${isTestMode ? `
-              <div class="auth-test-helper-card" style="margin-top:10px;">
-                <b>⚡ Razorpay Verification / QA Test Account:</b><br>
-                Email: <code>testuser@gmail.com</code><br>
-                Password: <code>TestPassword123!</code>
-              </div>
-            ` : ''}
           </div>
         </div>
       `;
       const btn = overlay.querySelector('#paywall-google-btn');
       if (btn) btn.onclick = signInWithGoogle;
-
-      const paywallForm = overlay.querySelector('#paywall-email-form');
-      if (paywallForm) {
-        paywallForm.onsubmit = (e) => {
-          e.preventDefault();
-          const email = (overlay.querySelector('#paywall-email-input').value || '').trim();
-          const pass = (overlay.querySelector('#paywall-password-input').value || '').trim();
-          signInWithEmail(email, pass);
-        };
-      }
     } else {
       // Step 2 Paywall: Gentle ₹49 Lifetime Payment
       overlay.innerHTML = `

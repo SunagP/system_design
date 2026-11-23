@@ -462,101 +462,212 @@ html.dark .supporter-badge {
   border-color: #22c55e;
 }
 
-/* Email/Password Auth Form Components */
-.auth-divider {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  margin: 10px 0;
-  color: var(--muted, #78716c);
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+/* ==========================================================================
+   Mobile Optimization Suite (Touch, Small Screens, Safe Insets)
+   ========================================================================== */
+
+/* Universal mobile touch feel */
+button, a, input {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.auth-divider::before,
-.auth-divider::after {
-  content: "";
-  flex: 1;
-  border-bottom: 1px solid var(--paper-3, #d6c7b2);
+@media (max-width: 640px) {
+  /* Prevent horizontal shifts on small viewports */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Compact topbar auth on mobile */
+  .topbar-auth {
+    gap: 4px;
+    margin-inline-start: 4px;
+  }
+
+  .user-badge {
+    padding: 2px 6px 2px 3px;
+    font-size: 10.5px;
+    gap: 5px;
+    border-radius: 7px;
+  }
+
+  .user-badge__avatar {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+
+  .user-badge__name {
+    max-width: 60px;
+    font-size: 10.5px;
+  }
+
+  .supporter-badge {
+    padding: 1px 4px;
+    font-size: 9px;
+  }
+
+  .google-btn {
+    padding: 4px 8px;
+    font-size: 11px;
+    border-radius: 7px;
+  }
+
+  .google-btn__icon {
+    width: 13px;
+    height: 13px;
+  }
+
+  /* Compact Paywall Preview Card inside Mobile Stage */
+  .paywall-overlay {
+    padding: 10px;
+  }
+
+  .paywall-card {
+    max-width: min(360px, 92%);
+    padding: 16px 14px;
+    gap: 10px;
+    border-radius: 12px;
+    box-shadow: 3px 4px 0 var(--ink, #1c1917);
+  }
+
+  .paywall-badge {
+    padding: 2px 8px;
+    font-size: 9.5px;
+  }
+
+  .paywall-title {
+    font-size: 15px;
+  }
+
+  .paywall-desc {
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .paywall-action .google-btn {
+    padding: 10px 14px;
+    font-size: 12.5px;
+    min-height: 42px;
+    border-radius: 8px;
+  }
+
+  /* Mobile-first Payment Modal */
+  .payment-modal-backdrop {
+    padding: 10px;
+    align-items: center;
+  }
+
+  .payment-card-modal {
+    max-width: 100%;
+    max-height: 88dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 18px 14px;
+    gap: 12px;
+    border-radius: 14px;
+    box-shadow: 4px 5px 0 var(--ink, #1c1917);
+  }
+
+  .payment-header {
+    gap: 10px;
+  }
+
+  .payment-icon-tile {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    border-radius: 8px;
+  }
+
+  .payment-title-group h2 {
+    font-size: 14.5px;
+    line-height: 1.25;
+  }
+
+  .payment-title-group span {
+    font-size: 10.5px;
+  }
+
+  .payment-gentle-msg {
+    font-size: 11px;
+    padding: 10px 12px;
+    line-height: 1.45;
+    border-radius: 8px;
+  }
+
+  .payment-perks {
+    font-size: 11px;
+    gap: 6px;
+  }
+
+  .payment-perk-item svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  .payment-pricing-banner {
+    padding: 8px 12px;
+    border-radius: 10px;
+  }
+
+  .payment-price-val {
+    font-size: 24px;
+  }
+
+  .payment-methods-pills {
+    gap: 3px;
+  }
+
+  .payment-pill {
+    padding: 2px 5px;
+    font-size: 9px;
+    border-radius: 4px;
+  }
+
+  .razorpay-pay-btn {
+    padding: 12px 14px;
+    font-size: 13px;
+    min-height: 44px;
+    border-radius: 10px;
+  }
+
+  /* Mobile Auth Modal */
+  .auth-modal {
+    max-width: min(360px, 92vw);
+    padding: 20px 16px;
+    border-radius: 14px;
+    box-shadow: 4px 5px 0 var(--ink, #1c1917);
+  }
+
+  .auth-modal .google-btn {
+    padding: 11px 14px;
+    font-size: 13px;
+    min-height: 44px;
+    border-radius: 10px;
+  }
+
+  /* Mobile Toast positioning */
+  #auth-toast {
+    left: 12px !important;
+    right: 12px !important;
+    bottom: calc(14px + env(safe-area-inset-bottom)) !important;
+    text-align: center;
+    font-size: 12px !important;
+    padding: 8px 14px !important;
+  }
 }
 
-.auth-divider:not(:empty)::before {
-  margin-right: .5em;
-}
+@media (max-width: 380px) {
+  .user-badge__name {
+    display: none;
+  }
 
-.auth-divider:not(:empty)::after {
-  margin-left: .5em;
-}
+  .topbar-auth #topbar-login-btn span {
+    display: none;
+  }
 
-.auth-email-form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.auth-input-field {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 8px 12px;
-  font-family: inherit;
-  font-size: 12px;
-  background: var(--paper-sheet, #fff);
-  color: var(--ink, #1c1917);
-  border: 1.5px solid var(--ink, #1c1917);
-  border-radius: 8px;
-  box-shadow: 1.5px 2px 0 var(--ink, #1c1917);
-  outline: none;
-  transition: border-color 0.15s ease;
-}
-
-.auth-input-field:focus {
-  border-color: var(--accent, #16a34a);
-}
-
-.auth-submit-btn {
-  width: 100%;
-  padding: 8px 16px;
-  background: var(--ink, #1c1917);
-  color: var(--paper-sheet, #fff);
-  border: 1.5px solid var(--ink, #1c1917);
-  border-radius: 8px;
-  font-family: inherit;
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 2px 2px 0 var(--muted, #78716c);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.auth-submit-btn:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 3px 3px 0 var(--muted, #78716c);
-}
-
-.auth-submit-btn:active {
-  transform: translate(1px, 1px);
-  box-shadow: 1px 1px 0 var(--muted, #78716c);
-}
-
-.auth-test-helper-card {
-  width: 100%;
-  box-sizing: border-box;
-  background: #f8fafc;
-  border: 1px dashed #94a3b8;
-  border-radius: 8px;
-  padding: 8px 10px;
-  font-size: 11px;
-  color: #475569;
-  text-align: left;
-  line-height: 1.45;
-}
-
-html[data-theme="dark"] .auth-test-helper-card,
-html.dark .auth-test-helper-card {
-  background: #1e293b;
-  border-color: #475569;
-  color: #cbd5e1;
+  .topbar-auth #topbar-login-btn {
+    padding: 5px 7px;
+  }
 }
