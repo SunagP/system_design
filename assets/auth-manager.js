@@ -380,6 +380,9 @@
   function openAuthModal(errMsg = '') {
     closeAuthModal();
 
+    const cfg = window.RAZORPAY_CONFIG || {};
+    const isTestMode = !cfg.keyId || cfg.keyId.startsWith('rzp_test_');
+
     const modal = document.createElement('div');
     modal.id = 'auth-modal-dialog';
     modal.className = 'auth-modal-backdrop';
@@ -413,11 +416,13 @@
           <button type="submit" class="auth-submit-btn" id="modal-email-submit">Sign In / Sign Up</button>
         </form>
 
-        <div class="auth-test-helper-card" style="margin-top:12px;">
-          <b>⚡ Razorpay Verification / QA Credentials:</b><br>
-          Email: <code>testuser@gmail.com</code><br>
-          Password: <code>TestPassword123!</code>
-        </div>
+        ${isTestMode ? `
+          <div class="auth-test-helper-card" style="margin-top:12px;">
+            <b>⚡ Razorpay Verification / QA Credentials:</b><br>
+            Email: <code>testuser@gmail.com</code><br>
+            Password: <code>TestPassword123!</code>
+          </div>
+        ` : ''}
       </div>
     `;
 
@@ -752,6 +757,9 @@
     overlay.className = 'paywall-overlay';
 
     if (!currentUser) {
+      const cfg = window.RAZORPAY_CONFIG || {};
+      const isTestMode = !cfg.keyId || cfg.keyId.startsWith('rzp_test_');
+
       // Step 1 Paywall: Sign in with Gmail (Google OAuth or Password)
       overlay.innerHTML = `
         <div class="paywall-card" style="max-width: 440px;">
@@ -777,11 +785,13 @@
               <button type="submit" class="auth-submit-btn" id="paywall-email-submit">Sign In / Sign Up</button>
             </form>
 
-            <div class="auth-test-helper-card" style="margin-top:10px;">
-              <b>⚡ Razorpay Verification / QA Test Account:</b><br>
-              Email: <code>testuser@gmail.com</code><br>
-              Password: <code>TestPassword123!</code>
-            </div>
+            ${isTestMode ? `
+              <div class="auth-test-helper-card" style="margin-top:10px;">
+                <b>⚡ Razorpay Verification / QA Test Account:</b><br>
+                Email: <code>testuser@gmail.com</code><br>
+                Password: <code>TestPassword123!</code>
+              </div>
+            ` : ''}
           </div>
         </div>
       `;

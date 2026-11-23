@@ -12,7 +12,7 @@
  */
 
 window.RAZORPAY_CONFIG = {
-  keyId: "rzp_test_U3IfSgP4rkIdV8",
+  keyId: "rzp_live_U3gqrnGLqR3zgY",
   amount: 4900,                    // ₹49 in paise
   currency: "INR",
   name: "System Design Course",
